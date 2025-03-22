@@ -2,6 +2,7 @@
 # http://git-scm.com/docs/gitignore
 
 .env
+set_env.sh
 *~
 *.sw[mnpcod]
 *.log
@@ -41,3 +42,4 @@ venv/
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+set_env.sh
