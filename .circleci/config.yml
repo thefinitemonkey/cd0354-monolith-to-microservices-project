@@ -23,10 +23,35 @@ jobs:
       - run:
           name: "Build udagram-reverseproxy"
           command: docker build -t reverseproxy ./udagram-reverseproxy
+      - run:
+          name: "Save Docker images to workspace"
+          command: |
+            mkdir -p docker-images
+            docker save udagram-api-feed -o docker-images/udagram-api-feed.tar
+            docker save udagram-api-user -o docker-images/udagram-api-user.tar
+            docker save udagram-frontend -o docker-images/udagram-frontend.tar
+            docker save reverseproxy -o docker-images/reverseproxy.tar
+      - persist_to_workspace:
+          root: docker-images
+          paths:
+            - "udagram-api-feed.tar"
+            - "udagram-api-user.tar"
+            - "udagram-frontend.tar"
+            - "reverseproxy.tar"
+
   tag-images:
     executor: docker-executor
     steps:
       - setup_remote_docker
+      - attach_workspace:
+          at: /workspace
+      - run:
+          name: "Load Docker images from workspace"
+          command: |
+            docker load -i /workspace/udagram-api-feed.tar
+            docker load -i /workspace/udagram-api-user.tar
+            docker load -i /workspace/udagram-frontend.tar
+            docker load -i /workspace/reverseproxy.tar
       - run:
           name: "Tag udagram-api-feed"
           command: docker tag udagram-api-feed thefinitemonkey/udagram-api-feed:v1
@@ -39,10 +64,27 @@ jobs:
       - run:
           name: "Tag reverseproxy"
           command: docker tag reverseproxy thefinitemonkey/reverseproxy:v1
+      - persist_to_workspace:
+          root: /workspace
+          paths:
+            - "udagram-api-feed.tar"
+            - "udagram-api-user.tar"
+            - "udagram-frontend.tar"
+            - "reverseproxy.tar"
+
   push-images:
     executor: docker-executor
     steps:
       - setup_remote_docker
+      - attach_workspace:
+          at: /workspace
+      - run:
+          name: "Load Docker images from workspace"
+          command: |
+            docker load -i /workspace/udagram-api-feed.tar
+            docker load -i /workspace/udagram-api-user.tar
+            docker load -i /workspace/udagram-frontend.tar
+            docker load -i /workspace/reverseproxy.tar
       - run:
           name: "Push udagram-api-feed"
           command: |
@@ -63,6 +105,7 @@ jobs:
           command: |
             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
             docker push thefinitemonkey/reverseproxy:v1
+
 workflows:
   build-and-deploy:
     jobs:
