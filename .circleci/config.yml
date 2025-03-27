@@ -65,12 +65,12 @@ jobs:
           name: "Tag reverseproxy"
           command: docker tag reverseproxy thefinitemonkey/reverseproxy:v1
       - run:
-        name: "Save tagged Docker images to workspace"
-        command: |
-          docker save thefinitemonkey/udagram-api-feed:v1 -o docker-images/udagram-api-feed.tar
-          docker save thefinitemonkey/udagram-api-user:v1 -o docker-images/udagram-api-user.tar
-          docker save thefinitemonkey/udagram-frontend:v1 -o docker-images/udagram-frontend.tar
-          docker save thefinitemonkey/reverseproxy:v1 -o docker-images/reverseproxy.tar
+          name: "Save tagged Docker images to workspace"
+          command: |
+            docker save thefinitemonkey/udagram-api-feed:v1 -o docker-images/udagram-api-feed.tar
+            docker save thefinitemonkey/udagram-api-user:v1 -o docker-images/udagram-api-user.tar
+            docker save thefinitemonkey/udagram-frontend:v1 -o docker-images/udagram-frontend.tar
+            docker save thefinitemonkey/reverseproxy:v1 -o docker-images/reverseproxy.tar
       - persist_to_workspace:
           root: docker-images
           paths:
