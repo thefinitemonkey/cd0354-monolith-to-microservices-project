@@ -29,16 +29,16 @@ jobs:
       - setup_remote_docker
       - run:
           name: "Tag udagram-api-feed"
-          command: docker tag udagram-api-feed fntmnky/udagram-api-feed:v1
+          command: docker tag udagram-api-feed thefinitemonkey/udagram-api-feed:v1
       - run:
           name: "Tag udagram-api-user"
-          command: docker tag udagram-api-user fntmnky/udagram-api-user:v1
+          command: docker tag udagram-api-user thefinitemonkey/udagram-api-user:v1
       - run:
           name: "Tag udagram-frontend"
-          command: docker tag udagram-frontend fntmnky/udagram-frontend:v1
+          command: docker tag udagram-frontend thefinitemonkey/udagram-frontend:v1
       - run:
           name: "Tag reverseproxy"
-          command: docker tag reverseproxy fntmnky/reverseproxy:v1
+          command: docker tag reverseproxy thefinitemonkey/reverseproxy:v1
   push-images:
     executor: docker-executor
     steps:
@@ -47,22 +47,22 @@ jobs:
           name: "Push udagram-api-feed"
           command: |
             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-            docker push fntmnky/udagram-api-feed:v1
+            docker push thefinitemonkey/udagram-api-feed:v1
       - run:
           name: "Push udagram-api-user"
           command: |
             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-            docker push fntmnky/udagram-api-user:v1
+            docker push thefinitemonkey/udagram-api-user:v1
       - run:
           name: "Push udagram-frontend"
           command: |
             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-            docker push fntmnky/udagram-frontend:v1
+            docker push thefinitemonkey/udagram-frontend:v1
       - run:
           name: "Push reverseproxy"
           command: |
             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-            docker push fntmnky/reverseproxy:v1
+            docker push thefinitemonkey/reverseproxy:v1
 workflows:
   build-and-deploy:
     jobs:
