@@ -1,0 +1,72 @@
+version: 2.1
+executors:
+  docker-executor:
+    docker:
+      - image: cimg/base:stable
+    working_directory: ~/project
+
+jobs:
+  build-images:
+    executor: docker-executor
+    steps:
+      - checkout
+      - run:
+          name: "Build udagram-api-feed"
+          command: docker build -t udagram-api-feed ./udagram-api-feed
+      - run:
+          name: "Build udagram-api-user"
+          command: docker build -t udagram-api-user ./udagram-api-user
+      - run:
+          name: "Build udagram-frontend"
+          command: docker build -t udagram-frontend ./udagram-frontend
+      - run:
+          name: "Build udagram-reverseproxy"
+          command: docker build -t reverseproxy ./udagram-reverseproxy
+  tag-images:
+    executor: docker-executor
+    steps:
+      - run:
+          name: "Tag udagram-api-feed"
+          command: docker tag udagram-api-feed fntmnky/udagram-api-feed:v1
+      - run:
+          name: "Tag udagram-api-user"
+          command: docker tag udagram-api-user fntmnky/udagram-api-user:v1
+      - run:
+          name: "Tag udagram-frontend"
+          command: docker tag udagram-frontend fntmnky/udagram-frontend:v1
+      - run:
+          name: "Tag reverseproxy"
+          command: docker tag reverseproxy fntmnky/reverseproxy:v1
+  push-images:
+    executor: docker-executor
+    steps:
+      - run:
+          name: "Push udagram-api-feed"
+          command: |
+            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+            docker push fntmnky/udagram-api-feed:v1
+      - run:
+          name: "Push udagram-api-user"
+          command: |
+            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+            docker push fntmnky/udagram-api-user:v1
+      - run:
+          name: "Push udagram-frontend"
+          command: |
+            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+            docker push fntmnky/udagram-frontend:v1
+      - run:
+          name: "Push reverseproxy"
+          command: |
+            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+            docker push fntmnky/reverseproxy:v1
+workflows:
+  build-and-deploy:
+    jobs:
+      - build-images
+      - tag-images:
+          requires:
+            - build-images
+      - push-images:
+          requires:
+            - tag-images
