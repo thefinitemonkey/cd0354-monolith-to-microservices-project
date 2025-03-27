@@ -44,14 +44,14 @@ jobs:
     steps:
       - setup_remote_docker
       - attach_workspace:
-          at: /workspace
+          at: docker-images
       - run:
           name: "Load Docker images from workspace"
           command: |
-            docker load -i /workspace/udagram-api-feed.tar
-            docker load -i /workspace/udagram-api-user.tar
-            docker load -i /workspace/udagram-frontend.tar
-            docker load -i /workspace/reverseproxy.tar
+            docker load -i docker-images/udagram-api-feed.tar
+            docker load -i docker-images/udagram-api-user.tar
+            docker load -i docker-images/udagram-frontend.tar
+            docker load -i docker-images/reverseproxy.tar
       - run:
           name: "Tag udagram-api-feed"
           command: docker tag udagram-api-feed thefinitemonkey/udagram-api-feed:v1
@@ -65,7 +65,7 @@ jobs:
           name: "Tag reverseproxy"
           command: docker tag reverseproxy thefinitemonkey/reverseproxy:v1
       - persist_to_workspace:
-          root: /workspace
+          root: docker-images
           paths:
             - "udagram-api-feed.tar"
             - "udagram-api-user.tar"
@@ -77,14 +77,14 @@ jobs:
     steps:
       - setup_remote_docker
       - attach_workspace:
-          at: /workspace
+          at: docker-images
       - run:
           name: "Load Docker images from workspace"
           command: |
-            docker load -i /workspace/udagram-api-feed.tar
-            docker load -i /workspace/udagram-api-user.tar
-            docker load -i /workspace/udagram-frontend.tar
-            docker load -i /workspace/reverseproxy.tar
+            docker load -i docker-images/udagram-api-feed.tar
+            docker load -i docker-images/udagram-api-user.tar
+            docker load -i docker-images/udagram-frontend.tar
+            docker load -i docker-images/reverseproxy.tar
       - run:
           name: "Push udagram-api-feed"
           command: |
