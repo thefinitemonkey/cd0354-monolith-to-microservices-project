@@ -9,6 +9,7 @@ jobs:
   build-images:
     executor: docker-executor
     steps:
+      - setup_remote_docker
       - checkout
       - run:
           name: "Build udagram-api-feed"
@@ -25,6 +26,7 @@ jobs:
   tag-images:
     executor: docker-executor
     steps:
+      - setup_remote_docker
       - run:
           name: "Tag udagram-api-feed"
           command: docker tag udagram-api-feed fntmnky/udagram-api-feed:v1
@@ -40,6 +42,7 @@ jobs:
   push-images:
     executor: docker-executor
     steps:
+      - setup_remote_docker
       - run:
           name: "Push udagram-api-feed"
           command: |
