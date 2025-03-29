@@ -5,15 +5,10 @@ metadata:
   labels:
     app: udagram-frontend
 spec:
-  type: ClusterIP # Use LoadBalancer if you want external access
+  type: LoadBalancer # Use LoadBalancer if you want external access
   ports:
-  - port: 8080
-    targetPort: 8100
-    name: alt-http
-    protocol: TCP
   - port: 80
     targetPort: 8100
-    name: http
     protocol: TCP
   selector:
     app: udagram-frontend

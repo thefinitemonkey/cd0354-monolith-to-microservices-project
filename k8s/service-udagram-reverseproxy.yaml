@@ -5,7 +5,7 @@ metadata:
   labels:
     app: udagram-reverseproxy
 spec:
-  type: ClusterIP # Use LoadBalancer if you want external access
+  type: LoadBalancer # Use LoadBalancer if you want external access
   ports:
   - port: 8080
     targetPort: 8080
