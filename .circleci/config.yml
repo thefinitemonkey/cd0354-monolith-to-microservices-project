@@ -63,7 +63,7 @@ jobs:
           command: docker tag udagram-frontend thefinitemonkey/udagram-frontend:v1
       - run:
           name: "Tag udagram-reverseproxy"
-          command: docker tag udagram-reverseproxy thefinitemonkey/udagram-reverseproxy:v1
+          command: docker tag udagram-reverseproxy thefinitemonkey/udagram-reverseproxy:v2
       - run:
           name: "Save tagged Docker images to workspace"
           command: |
