@@ -70,7 +70,7 @@ jobs:
             docker save thefinitemonkey/udagram-api-feed:v1 -o docker-images/udagram-api-feed.tar
             docker save thefinitemonkey/udagram-api-user:v1 -o docker-images/udagram-api-user.tar
             docker save thefinitemonkey/udagram-frontend:v1 -o docker-images/udagram-frontend.tar
-            docker save thefinitemonkey/udagram-reverseproxy:v1 -o docker-images/udagram-reverseproxy.tar
+            docker save thefinitemonkey/udagram-reverseproxy:v2 -o docker-images/udagram-reverseproxy.tar
       - persist_to_workspace:
           root: docker-images
           paths:
@@ -114,7 +114,7 @@ jobs:
           name: "Push udagram-reverseproxy"
           command: |
             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-            docker push thefinitemonkey/udagram-reverseproxy:v1
+            docker push thefinitemonkey/udagram-reverseproxy:v2
 
 workflows:
   build-and-deploy:
