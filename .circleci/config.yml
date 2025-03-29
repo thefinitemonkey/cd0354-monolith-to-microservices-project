@@ -22,7 +22,7 @@ jobs:
           command: docker build -t udagram-frontend ./udagram-frontend
       - run:
           name: "Build udagram-reverseproxy"
-          command: docker build -t reverseproxy ./udagram-reverseproxy
+          command: docker build -t udagram-reverseproxy ./udagram-reverseproxy
       - run:
           name: "Save Docker images to workspace"
           command: |
@@ -30,14 +30,14 @@ jobs:
             docker save udagram-api-feed -o docker-images/udagram-api-feed.tar
             docker save udagram-api-user -o docker-images/udagram-api-user.tar
             docker save udagram-frontend -o docker-images/udagram-frontend.tar
-            docker save reverseproxy -o docker-images/reverseproxy.tar
+            docker save udagram-reverseproxy -o docker-images/udagram-reverseproxy.tar
       - persist_to_workspace:
           root: docker-images
           paths:
             - "udagram-api-feed.tar"
             - "udagram-api-user.tar"
             - "udagram-frontend.tar"
-            - "reverseproxy.tar"
+            - "udagram-reverseproxy.tar"
 
   tag-images:
     executor: docker-executor
@@ -51,7 +51,7 @@ jobs:
             docker load -i docker-images/udagram-api-feed.tar
             docker load -i docker-images/udagram-api-user.tar
             docker load -i docker-images/udagram-frontend.tar
-            docker load -i docker-images/reverseproxy.tar
+            docker load -i docker-images/udagram-reverseproxy.tar
       - run:
           name: "Tag udagram-api-feed"
           command: docker tag udagram-api-feed thefinitemonkey/udagram-api-feed:v1
@@ -62,22 +62,22 @@ jobs:
           name: "Tag udagram-frontend"
           command: docker tag udagram-frontend thefinitemonkey/udagram-frontend:v1
       - run:
-          name: "Tag reverseproxy"
-          command: docker tag reverseproxy thefinitemonkey/reverseproxy:v1
+          name: "Tag udagram-reverseproxy"
+          command: docker tag udagram-reverseproxy thefinitemonkey/udagram-reverseproxy:v1
       - run:
           name: "Save tagged Docker images to workspace"
           command: |
             docker save thefinitemonkey/udagram-api-feed:v1 -o docker-images/udagram-api-feed.tar
             docker save thefinitemonkey/udagram-api-user:v1 -o docker-images/udagram-api-user.tar
             docker save thefinitemonkey/udagram-frontend:v1 -o docker-images/udagram-frontend.tar
-            docker save thefinitemonkey/reverseproxy:v1 -o docker-images/reverseproxy.tar
+            docker save thefinitemonkey/udagram-reverseproxy:v1 -o docker-images/udagram-reverseproxy.tar
       - persist_to_workspace:
           root: docker-images
           paths:
             - "udagram-api-feed.tar"
             - "udagram-api-user.tar"
             - "udagram-frontend.tar"
-            - "reverseproxy.tar"
+            - "udagram-reverseproxy.tar"
 
   push-images:
     executor: docker-executor
@@ -94,7 +94,7 @@ jobs:
             docker load -i docker-images/udagram-api-feed.tar
             docker load -i docker-images/udagram-api-user.tar
             docker load -i docker-images/udagram-frontend.tar
-            docker load -i docker-images/reverseproxy.tar
+            docker load -i docker-images/udagram-reverseproxy.tar
       - run:
           name: "Push udagram-api-feed"
           command: |
@@ -111,10 +111,10 @@ jobs:
             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
             docker push thefinitemonkey/udagram-frontend:v1
       - run:
-          name: "Push reverseproxy"
+          name: "Push udagram-reverseproxy"
           command: |
             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-            docker push thefinitemonkey/reverseproxy:v1
+            docker push thefinitemonkey/udagram-reverseproxy:v1
 
 workflows:
   build-and-deploy:
