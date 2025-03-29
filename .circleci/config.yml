@@ -60,7 +60,7 @@ jobs:
           command: docker tag udagram-api-user thefinitemonkey/udagram-api-user:v1
       - run:
           name: "Tag udagram-frontend"
-          command: docker tag udagram-frontend thefinitemonkey/udagram-frontend:v1
+          command: docker tag udagram-frontend thefinitemonkey/udagram-frontend:v2
       - run:
           name: "Tag udagram-reverseproxy"
           command: docker tag udagram-reverseproxy thefinitemonkey/udagram-reverseproxy:v3
@@ -69,7 +69,7 @@ jobs:
           command: |
             docker save thefinitemonkey/udagram-api-feed:v1 -o docker-images/udagram-api-feed.tar
             docker save thefinitemonkey/udagram-api-user:v1 -o docker-images/udagram-api-user.tar
-            docker save thefinitemonkey/udagram-frontend:v1 -o docker-images/udagram-frontend.tar
+            docker save thefinitemonkey/udagram-frontend:v2 -o docker-images/udagram-frontend.tar
             docker save thefinitemonkey/udagram-reverseproxy:v3 -o docker-images/udagram-reverseproxy.tar
       - persist_to_workspace:
           root: docker-images
@@ -109,7 +109,7 @@ jobs:
           name: "Push udagram-frontend"
           command: |
             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-            docker push thefinitemonkey/udagram-frontend:v1
+            docker push thefinitemonkey/udagram-frontend:v2
       - run:
           name: "Push udagram-reverseproxy"
           command: |

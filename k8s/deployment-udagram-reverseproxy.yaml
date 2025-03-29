@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: udagram-reverseproxy
-        image: thefinitemonkey/udagram-reverseproxy:v2 # Replace with your image
+        image: thefinitemonkey/udagram-reverseproxy:v3 # Replace with your image
         ports:
         - containerPort: 8080
         env:
