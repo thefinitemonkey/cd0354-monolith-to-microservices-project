@@ -10,6 +10,6 @@ data:
   AWS_REGION: us-east-1
   AWS_PROFILE: default
   JWT_SECRET: testing
-  URL: http://afcf71dca073a48a49f6ab0ff3d632ff-2138048085.us-east-1.elb.amazonaws.com
+  URL: http://afcf71dca073a48a49f6ab0ff3d632ff-2138048085.us-east-1.elb.amazonaws.com:8080
   FEED_UPSTREAM: udagram-api-feed
   USER_UPSTREAM: udagram-api-user
