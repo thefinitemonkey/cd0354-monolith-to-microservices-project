@@ -18,7 +18,7 @@ spec:
       - name: udagram-api-user
         image: thefinitemonkey/udagram-api-user:v1 # Replace with your image
         ports:
-        - containerPort: 8100
+        - containerPort: 8080
         env:
         - name: POSTGRES_USERNAME
           valueFrom:

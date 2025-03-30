@@ -7,8 +7,8 @@ metadata:
 spec:
   type: ClusterIP # Use LoadBalancer if you want external access
   ports:
-  - port: 8100
-    targetPort: 8100
+  - port: 8080
+    targetPort: 8080
     protocol: TCP
   selector:
     app: udagram-api-feed
