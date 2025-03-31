@@ -4,12 +4,12 @@ metadata:
   name: udagram-env-config
   namespace: default
 data:
-  POSTGRES_HOST: fntmnky.c4nz8ja40tpz.us-east-1.rds.amazonaws.com
+  POSTGRES_HOST: fntmnky-postgres.c69az4onuovl.us-east-1.rds.amazonaws.com
   POSTGRES_DB: postgres
   AWS_BUCKET: fntmnky-refactor-s3
   AWS_REGION: us-east-1
   AWS_PROFILE: default
   JWT_SECRET: testing
-  URL: http://afcf71dca073a48a49f6ab0ff3d632ff-2138048085.us-east-1.elb.amazonaws.com:8080
+  URL: http://ac82715cbf96a4131878615a734536e3-1376782028.us-east-1.elb.amazonaws.com:8080
   FEED_UPSTREAM: udagram-api-feed
   USER_UPSTREAM: udagram-api-user
