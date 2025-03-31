@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: udagram-frontend
-        image: thefinitemonkey/udagram-frontend:v5 # Replace with your image
+        image: thefinitemonkey/udagram-frontend:v6 # Replace with your image
         ports:
         - containerPort: 80
         env:

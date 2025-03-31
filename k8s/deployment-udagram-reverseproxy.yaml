@@ -17,9 +17,14 @@ spec:
       dnsPolicy: ClusterFirst
       containers:
       - name: udagram-reverseproxy
-        image: thefinitemonkey/udagram-reverseproxy:v6 # Replace with your image
+        image: thefinitemonkey/udagram-reverseproxy:v7 # Replace with your image
         ports:
         - containerPort: 8080
+        resources:
+          requests:
+            cpu: "200m"
+          limits:
+            cpu: "500m"
         env:
         - name: POSTGRES_USERNAME
           valueFrom:
